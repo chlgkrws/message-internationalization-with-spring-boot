@@ -7,11 +7,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.web.servlet.LocaleResolver;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.i18n.CookieLocaleResolver;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
-
-import java.util.Locale;
 
 @Configuration
 @ConditionalOnProperty(value = "configuration.message.internationalization.enabled", havingValue = "true", matchIfMissing = true)
@@ -32,7 +31,6 @@ public class InternationalizationMessageConfiguration implements WebMvcConfigure
     @Bean
     public LocaleResolver localeResolver() {
         CookieLocaleResolver resolver = new CookieLocaleResolver();
-        resolver.setDefaultLocale(Locale.getDefault());
         resolver.setCookieName(internationalizationProperties.getParameterName());
         return resolver;
     }
@@ -44,4 +42,8 @@ public class InternationalizationMessageConfiguration implements WebMvcConfigure
         return interceptor;
     }
 
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(localeChangeInterceptor());
+    }
 }

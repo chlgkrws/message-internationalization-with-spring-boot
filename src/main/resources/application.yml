@@ -1,10 +1,12 @@
-configuration:                 # ???? ??
+configuration:                 # 프로젝트 환경설정
   message:
-    internationalization:      # ??? ???
+    internationalization:      # 국제화 옵션
       enabled: true
-      parameter-name: lang     # URL ???? ??(Locale)
+      parameter-name: lang     # URL 파라미터 명(Locale)
 
 spring:
+  profiles:
+    active: local
   thymeleaf:
     enabled: true
     prefix: classpath:templates/

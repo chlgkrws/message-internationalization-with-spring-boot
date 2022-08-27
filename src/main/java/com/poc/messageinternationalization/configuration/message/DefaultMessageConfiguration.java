@@ -14,9 +14,8 @@ public class DefaultMessageConfiguration {
     public MessageSource messageSource() {
         ReloadableResourceBundleMessageSource messageSource =
                 new ReloadableResourceBundleMessageSource();
-        messageSource.addBasenames("classpath:i18n/message_kr");
+        messageSource.addBasenames("classpath:i18n/message_ko");
         messageSource.setDefaultEncoding("UTF-8");
         return messageSource;
     }
-
 }

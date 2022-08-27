@@ -1,5 +1,6 @@
 
-
+Locale miss match 시 
+- 파라미터, 헤더로 전달받은 Locale의 메시지 코드가 없는경우, 현재 Locale의 메시지 코드로 탐색, 이마저도 없는 경우 기본 메시지로 반환 
 
 
 Reference 
