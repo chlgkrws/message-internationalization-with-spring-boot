@@ -13,37 +13,45 @@ public class ErrorsSerializer extends JsonSerializer<Errors> {
 
     @Override
     public void serialize(Errors errors, JsonGenerator gen, SerializerProvider serializers) throws IOException {
+        try {
+            gen.writeStartObject();
+            gen.writeFieldName("errors");
 
-        gen.writeStartArray();
-        errors.getFieldErrors().stream().forEach(e -> {
-            try {
-                gen.writeStartObject();
-                gen.writeStringField("field", e.getField());
-                gen.writeStringField("code", e.getCode());
-                gen.writeStringField("objectName", e.getObjectName());
-                gen.writeStringField("defaultMessage", e.getDefaultMessage());
+            gen.writeStartArray();
+            errors.getFieldErrors().stream().forEach(e -> {
+                try {
+                    gen.writeStartObject();
+                    gen.writeStringField("field", e.getField());
+                    gen.writeStringField("code", e.getCode());
+                    gen.writeStringField("objectName", e.getObjectName());
+                    gen.writeStringField("defaultMessage", e.getDefaultMessage());
 
-                Object rejectedValue = e.getRejectedValue();
-                if(rejectedValue != null) {
-                    gen.writeStringField("rejectedValue", rejectedValue.toString());
+                    Object rejectedValue = e.getRejectedValue();
+                    if(rejectedValue != null) {
+                        gen.writeStringField("rejectedValue", rejectedValue.toString());
+                    }
+                    gen.writeEndObject();
+                }catch (Exception e1) {
+                    e1.printStackTrace();
                 }
-                gen.writeEndObject();
-            }catch (Exception e1) {
-                e1.printStackTrace();
-            }
-        });
+            });
 
-        errors.getGlobalErrors().stream().forEach(e -> {
-            try {
-                gen.writeStartObject();
-                gen.writeStringField("code", e.getCode());
-                gen.writeStringField("objectName", e.getObjectName());
-                gen.writeStringField("defaultMessage", e.getDefaultMessage());
-                gen.writeEndObject();
-            }catch (Exception e1) {
-                e1.printStackTrace();
-            }
-        });
-        gen.writeEndArray();
+            errors.getGlobalErrors().stream().forEach(e -> {
+                try {
+                    gen.writeStartObject();
+                    gen.writeStringField("code", e.getCode());
+                    gen.writeStringField("objectName", e.getObjectName());
+                    gen.writeStringField("defaultMessage", e.getDefaultMessage());
+                    gen.writeEndObject();
+                }catch (Exception e1) {
+                    e1.printStackTrace();
+                }
+            });
+            gen.writeEndArray();
+            gen.writeEndObject();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
     }
 }

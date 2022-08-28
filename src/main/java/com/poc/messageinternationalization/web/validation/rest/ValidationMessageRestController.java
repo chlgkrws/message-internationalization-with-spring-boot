@@ -1,6 +1,5 @@
 package com.poc.messageinternationalization.web.validation.rest;
 
-import com.poc.messageinternationalization.configuration.serialization.ErrorsUtil;
 import com.poc.messageinternationalization.web.validation.dto.ValidationDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -22,8 +21,6 @@ public class ValidationMessageRestController {
             log.info("errors ::: "+errors);
         }
 
-        return ResponseEntity
-                .ok()
-                .body(ErrorsUtil.errorModel(errors));
+        return ResponseEntity.ok().body(errors);
     }
 }
